@@ -10,10 +10,10 @@
 <%	
 	String flag = request.getParameter("flag");
 	
-	if(!flag.equals("1")){
+	if(flag.equals("0")){
 		boardList.add(board);
 		response.sendRedirect("board_write2.jsp");
-	}else{
+	}else if(flag.equals("1")){
 		RequestDispatcher rd = request.getRequestDispatcher("board_list.jsp");
 		request.setAttribute("boardList", boardList);
 		rd.forward(request, response);
