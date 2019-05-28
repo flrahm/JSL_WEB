@@ -12,10 +12,16 @@ public class P04 {
 		List<String> list = new ArrayList<String>();
 		list.add("aaa");
 		list.add("bbb");
+		list.add("ddd");
 		list.add("bbb");
+		list.add("ddd");
+		list.add("ccc");
+		list.add("ddd");
 		list.add("ccc");
 		list.add("ccc");
-		list.add("ccc");
+		list.add("ddd");
+		
+		
 		
 		//°è»ê
 		Map<String,Integer> map = new HashMap<String,Integer>();

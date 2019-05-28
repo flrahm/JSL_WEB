@@ -13,6 +13,7 @@ public class P03 {
 		list.add("eeeee");
 		list.add("ffffff");
 		
+
 		int maxLen = 0;
 		String result = "";
 		for(int i = 0; i < list.size(); i++) {
