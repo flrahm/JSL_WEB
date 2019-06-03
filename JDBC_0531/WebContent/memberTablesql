@@ -1,0 +1,23 @@
+
+create table member(
+    idx number primary key,
+    name varchar2(20) not null,
+    userid varchar2(20) unique,
+    passwd varchar2(20) not null,
+    zipcode varchar2(7),
+    addr1 varchar2(100),
+    addr2 varchar2(100),
+    tel varchar2(15) not null,
+    email varchar2(30),
+    job varchar2(20),
+    intro varchar2(1000),
+    favorite varchar2(100),
+    first_time date default sysdate,
+    last_time date
+    );
+    
+
+    create sequence member_idx_seq
+    start with 100 increment by 1;
+    
+    
