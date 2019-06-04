@@ -7,7 +7,7 @@
 	MemberManager manager = MemberManager.getInstance();
 	List<MemberVO> mList = manager.selectAllMember();
 	pageContext.setAttribute("mList", mList);
-
+	
 %>
 <html>
 <head>
@@ -21,6 +21,13 @@ td   { font-family: 돋움, Verdana; font-size: 9pt; text-decoration: none; colo
 </STYLE>
 </head>
 <body>
+<c:if test="${not empty sessionScope.loginName }">
+${sessionScope.loginName } 님 환영합니다 &nbsp;&nbsp; <A href = "logout.jsp">로그아웃</A><br>
+</c:if>
+
+<c:if test="${empty sessionScope.loginName }">
+<a href = "userlogin_form.jsp">로그인</a><br>
+</c:if>
 <table width="550" border="1" cellspacing="0" cellpadding="2" bordercolorlight="#173E7C" bordercolordark="white">
   <tr>
     <td width=50 align=center>ID</td>
@@ -60,5 +67,6 @@ td   { font-family: 돋움, Verdana; font-size: 9pt; text-decoration: none; colo
      </td>
    </tr>
 </table>    
+
 </body>
 </html>

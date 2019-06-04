@@ -2,19 +2,23 @@
 <%@page import="member.dao.MemberManager"%>
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%
 	request.setCharacterEncoding("utf-8");
 	
 	String idx = request.getParameter("idx");
+	if(idx == null)
+		idx = "" +(int)session.getAttribute("loginIdx");
+		
 	MemberManager manager = MemberManager.getInstance();
 	MemberVO mvo = manager.selectMemberByIdx(idx);
 	pageContext.setAttribute("mvo", mvo);
 	
-%>
-
-<%
 	String fa = mvo.getFavorite();
 	String job = mvo.getJob();
+	
+	pageContext.setAttribute("fa", fa);
+	pageContext.setAttribute("job", job);
 %>
 <html>
 <head>
@@ -153,36 +157,37 @@ td   { font-family: 돋움, Verdana; font-size: 9pt; text-decoration: none; colo
                 	<font color=red>&nbsp;</font>
                 </td>
 								<td bgcolor=WHITE valign=middle> 
-									<input type="checkbox" name="fa" value="건강" <%if(fa.contains("건강")){ %> checked <%} %> >건강 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-									<input type="checkbox" name="fa" value="문화예술" <%if(fa.contains("문화예술")){ %> checked <%} %>>문화예술 &nbsp;&nbsp;
-									<input type="checkbox" name="fa" value="경제" <%if(fa.contains("경제")){ %> checked <%} %>>경제 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-									<input type="checkbox" name="fa" value="연예오락" <%if(fa.contains("연예오락")){ %> checked <%} %>>연예오락 &nbsp;
-									<input type="checkbox" name="fa" value="뉴스" <%if(fa.contains("뉴스")){ %> checked <%} %>>뉴스
-									<br><input type="checkbox" name="fa" value="여행레져" <%if(fa.contains("여행레져")){ %> checked <%} %>>여행레져 &nbsp;&nbsp;
-									<input type="checkbox" name="fa" value="생활" <%if(fa.contains("생활")){ %> checked <%} %>>생활 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-									<input type="checkbox" name="fa" value="스포츠" <%if(fa.contains("스포츠")){ %> checked <%} %>>스포츠 &nbsp;&nbsp;
-									<input type="checkbox" name="fa" value="교육" <%if(fa.contains("교육")){ %> checked <%} %>>교육 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-									<input type="checkbox" name="fa" value="컴퓨터" <%if(fa.contains("컴퓨터")){ %> checked <%} %>>컴퓨터 &nbsp;&nbsp;
-									<input type="checkbox" name="fa" value="학문" <%if(fa.contains("학문")){ %> checked <%} %>>학문 &nbsp;&nbsp;
+									<input type="checkbox" name="fa" value="건강" <c:if test="${fn:contains(fa,'건강') }"> checked </c:if> >건강 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									<input type="checkbox" name="fa" value="문화예술"<c:if test="${fn:contains(fa,'문화예술') }"> checked </c:if>>문화예술 &nbsp;&nbsp;
+									<input type="checkbox" name="fa" value="경제" <c:if test="${fn:contains(fa,'경제') }"> checked </c:if>>경제 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									<input type="checkbox" name="fa" value="연예오락" <c:if test="${fn:contains(fa,'연예오락') }"> checked </c:if>>연예오락 &nbsp;
+									<input type="checkbox" name="fa" value="뉴스" <c:if test="${fn:contains(fa,'뉴스') }"> checked </c:if>>뉴스
+									<br><input type="checkbox" name="fa" value="여행레져" <c:if test="${fn:contains(fa,'여행레져') }"> checked </c:if>>여행레져 &nbsp;&nbsp;
+									<input type="checkbox" name="fa" value="생활" <c:if test="${fn:contains(fa,'생활') }"> checked </c:if>>생활 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									<input type="checkbox" name="fa" value="스포츠" <c:if test="${fn:contains(fa,'스포츠') }"> checked </c:if>>스포츠 &nbsp;&nbsp;
+									<input type="checkbox" name="fa" value="교육"<c:if test="${fn:contains(fa,'교육') }"> checked </c:if>>교육 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									<input type="checkbox" name="fa" value="컴퓨터" <c:if test="${fn:contains(fa,'컴퓨터') }"> checked </c:if>>컴퓨터 &nbsp;&nbsp;
+									<input type="checkbox" name="fa" value="학문" <c:if test="${fn:contains(fa,'학문') }"> checked </c:if>>학문 &nbsp;&nbsp;
 								</td>
+							
               </tr>
               <tr>
                 <TD BGCOLOR="#EFF4F8">&nbsp;직업<font color=red>&nbsp;</font></td>
                 <TD BGCOLOR=WHITE>
                   <select name=job class="formbox">
  										<option value="0">선택하세요 ---
- 										<option value="회사원"  <%if(job.equals("회사원")){ %> selected="selected" <%} %>>회사원
- 										<option value="연구전문직" <%if(job.equals("연구전문직")){ %> selected="selected" <%} %>>연구전문직
- 										<option value="교수학생" <%if(job.equals("교수학생")){ %> selected="selected" <%} %>>교수학생
- 										<option value="일반자영업" <%if(job.equals("일반자영업")){ %> selected="selected" <%} %>>일반자영업
- 										<option value="공무원" <%if(job.equals("공무원")){ %> selected="selected" <%} %>>공무원
- 										<option value="의료인" <%if(job.equals("의료인")){ %> selected="selected" <%} %>>의료인
- 										<option value="법조인" <%if(job.equals("법조인")){ %> selected="selected" <%} %>>법조인
- 										<option value="종교,언론,에술인" <%if(job.equals("종교,언론,예술인")){ %> selected="selected" <%} %>>종교.언론/예술인
- 										<option value="농,축,수산,광업인" <%if(job.equals("농,축,수산,광업인")){ %> selected="selected" <%} %>>농/축/수산/광업인
- 										<option value="주부" <%if(job.equals("주부")){ %> selected="selected" <%} %>>주부
- 										<option value="무직" <%if(job.equals("무직")){ %> selected="selected" <%} %>>무직
- 										<option value="기타" <%if(job.equals("기타")){ %> selected="selected" <%} %>>기타
+ 										<option value="회사원" <c:if test="${fn:contains(job,'회사원') }"> selected="selected" </c:if>>회사원
+ 										<option value="연구전문직" <c:if test="${fn:contains(job,'연구전문직') }"> selected="selected" </c:if>>연구전문직
+ 										<option value="교수학생" <c:if test="${fn:contains(job,'교수학생') }"> selected="selected" </c:if>>교수학생
+ 										<option value="일반자영업" <c:if test="${fn:contains(job,'일반자영업') }"> selected="selected" </c:if>>일반자영업
+ 										<option value="공무원" <c:if test="${fn:contains(job,'공무원') }"> selected="selected" </c:if>>공무원
+ 										<option value="의료인" <c:if test="${fn:contains(job,'의료인') }"> selected="selected" </c:if>>의료인
+ 										<option value="법조인" <c:if test="${fn:contains(job,'법조인') }"> selected="selected" </c:if>>법조인
+ 										<option value="종교,언론,에술인" <c:if test="${fn:contains(job,'종교.언론/예술인') }"> selected="selected" </c:if>>종교.언론/예술인
+ 										<option value="농,축,수산,광업인" <c:if test="${fn:contains(job,'농/축/수산/광업인') }"> selected="selected" </c:if>>농/축/수산/광업인
+ 										<option value="주부" <c:if test="${fn:contains(job,'주부') }"> selected="selected" </c:if>>주부
+ 										<option value="무직"<c:if test="${fn:contains(job,'무직') }"> selected="selected" </c:if>>무직
+ 										<option value="기타" <c:if test="${fn:contains(job,'기타') }"> selected="selected" </c:if>>기타
 									</select>
 								</td>                
               </tr>

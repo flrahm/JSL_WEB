@@ -1,5 +1,9 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%
+	String flag = request.getParameter("flag");
+	pageContext.setAttribute("flag", flag);
+%>
 <HTML>
 <HEAD>
 <TITLE>로그온</TITLE>
@@ -11,6 +15,22 @@ td   { font-family: 돋움, Verdana; font-size: 9pt; text-decoration: none; colo
       BACKGROUND-POSITION: left top; BACKGROUND-REPEAT: no-repeat;}
 //-->
 </STYLE>
+<script>
+	function send(){
+		
+		if(fname.userid.value==""){
+			alert("아이디를 입력하세요");
+			return false;
+		}
+		
+		if(fname.passwd.value==""){
+			alert("비밀번호를 입력하세요");
+			return false;
+		}
+		
+		fname.submit();
+	}
+</script>
 </HEAD>
 <body bgcolor="#FFFFFF" text="#000000" leftmargin=0 
   topmargin=0 onLoad='document.fname.user_id.focus();'>
@@ -20,7 +40,7 @@ td   { font-family: 돋움, Verdana; font-size: 9pt; text-decoration: none; colo
   <TD width=100>&nbsp;</td>
   <TD>
     <table width="583" border="0" cellspacing="0" cellpadding="0" height="265">
-	  <form name=fname method=post action=""  onSubmit="return check_submit()">
+	  <form name=fname method=post action="userlogin_ok.jsp">
 	    <tr>
 		  <td height="298"> 
 		    <table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -33,12 +53,22 @@ td   { font-family: 돋움, Verdana; font-size: 9pt; text-decoration: none; colo
 			  </tr>
 			 </table>
 			 <table border="0" cellpadding="0" cellspacing="0" width="550">
+
 			   <tr> 
 			     <td bgcolor="#7aaad5"> 
 				   <table border="0" cellpadding="3" cellspacing="1" width="99%" height="321">
 				     <tr bgcolor="#FFFFFF"> 
 					   <td align=CENTER bgcolor="#eff4f8" height="92"> 
 					     <table width="330" border="0" cellspacing="0" cellpadding="1">
+					     
+					     <c:if test="${flag == -1 }">
+					     <tr><font color = "#ff0000"> 아이디가 일치하지 않습니다 </font>  </tr>
+					     </c:if>
+					     
+					     <c:if test="${flag == 0 }">
+					     <tr><font color = "#ff0000"> 비밀번호가 일치하지 않습니다 </font>  </tr>
+					     </c:if>
+					     
 							<tr valign=bottom> 
 							  <td width="21"><img src="./img/h_bl02.gif" width="18" height="16"></td>
 							  <td width="55" nowrap>아 이 디</td>
@@ -53,7 +83,7 @@ td   { font-family: 돋움, Verdana; font-size: 9pt; text-decoration: none; colo
 							  <td>: 
 								<input type=password name="passwd" size=14 maxlength=12 STYLE="WIDTH:155">
 							  </td>
-							  <td><input type=image src="./img/login.gif" border=0 align=absmiddle></td>
+							  <td><A href = "#" onClick ="javascript:send()"><img src="./img/login.gif" border=0 align=absmiddle></A></td>
 							</tr>
 						  </table>
 						</td>
@@ -75,8 +105,9 @@ td   { font-family: 돋움, Verdana; font-size: 9pt; text-decoration: none; colo
 							        <td> 
 							          <p style="LINE-HEIGHT:15PX;"><font color="#AFAFB1">아이디가 
 								      없으신 분은 
-							          <font color="#ff7508">이용자가입</font>을 하시기 바랍니다.<br>
+							          <font color="#ff7508"><a href = "userinfo_insert.jsp">이용자가입</a></font>을 하시기 바랍니다.<br>
 							            <br>
+							          
 							            <br>
 							          </p>
 							       </td>
@@ -103,6 +134,7 @@ td   { font-family: 돋움, Verdana; font-size: 9pt; text-decoration: none; colo
 	</TD>
 </TR>
 </TABLE>
+
 </body>
 </html>
 

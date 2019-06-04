@@ -20,6 +20,104 @@ public class MemberManager {
 	}
 	
 	
+	public int userLogin(String inputId, String inputPw) {
+		int flag = -1;  // -1이면 아이디 없음, 0이면 비밀번호 틀림, 1이면 로그인 성공
+		String sql = "select passwd from member where userid = ?";
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try{
+			conn = DBUtil.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, inputId);
+			rs = pstmt.executeQuery();
+			
+			
+			if(rs.next()) {
+				String passwd = rs.getString(1);
+				
+				if(inputPw.equals(passwd))
+					flag = 1;
+				else
+					flag = 0;
+			}
+			
+	
+		}catch(Exception e){
+			
+		}finally{
+			try {
+				if(rs != null)
+					rs.close();
+				if(pstmt != null)
+					pstmt.close();
+				if(conn != null)
+					conn.close();
+			}catch(Exception e) {
+				System.out.println(e);
+			}
+		}
+		
+		
+		
+		return flag;
+	}
+	
+	// 아이디로 회원 검색
+	public MemberVO selectMemberById(String userid){
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		String sql = "select * from member where userid = ?";
+		
+		MemberVO mvo = null;
+		
+		try{
+			conn = DBUtil.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userid);
+			rs = pstmt.executeQuery();
+			mvo = new MemberVO();
+			
+			while(rs.next()){
+				
+				mvo.setIdx(rs.getInt("idx"));
+				mvo.setName(rs.getString("name"));
+				mvo.setUserid(rs.getString("userid"));
+				mvo.setPasswd(rs.getString("passwd"));
+				mvo.setEmail(rs.getString("email"));
+				mvo.setAddr1(rs.getString("addr1"));
+				mvo.setAddr2(rs.getString("addr2"));
+				mvo.setJob(rs.getString("job"));
+				mvo.setFavorite(rs.getString("favorite"));
+				mvo.setTel(rs.getString("tel"));
+				mvo.setIntro(rs.getString("intro"));
+				mvo.setZipcode(rs.getString("zipcode"));
+			}
+			
+	
+		}catch(Exception e){
+			
+		}finally{
+			try {
+				if(rs != null)
+					rs.close();
+				if(pstmt != null)
+					pstmt.close();
+				if(conn != null)
+					conn.close();
+			}catch(Exception e) {
+				System.out.println(e);
+			}
+		}
+		
+		return mvo;
+}
+	
 	// 아이디로 회원 검색
 	public MemberVO selectMemberByIdx(String idx){
 		
@@ -70,8 +168,6 @@ public class MemberManager {
 		}
 		
 		return mvo;
-		
-	
 }
 	
 	// 아이디 중복 체크

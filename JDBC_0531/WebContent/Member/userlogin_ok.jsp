@@ -1,5 +1,30 @@
+<%@page import="member.vo.MemberVO"%>
+<%@page import="member.dao.MemberManager"%>
 <%@ page contentType="text/html; charset=UTF-8" %>
+<%@ taglib prefix="c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%
+	request.setCharacterEncoding("utf-8");
+	String inputId = request.getParameter("userid");
+	String inputPw = request.getParameter("passwd");
+	
+	MemberManager manager = MemberManager.getInstance();
+	int flag = manager.userLogin(inputId, inputPw);
+	//-1 0  1 : 로그인 성공
+	
+	 if(flag != 1){
+		response.sendRedirect("userlogin_form.jsp?flag="+flag);
+	}else{
+		// 로그인 성공 
+		MemberVO mvo = manager.selectMemberById(inputId);
+		pageContext.setAttribute("mvo", mvo);
+		
+		
+		session.setAttribute("loginIdx", mvo.getIdx());
+		session.setAttribute("loginId", mvo.getUserid());
+		session.setAttribute("loginName", mvo.getName());
+	} 
 
+%>
 <HTML>
 
 <TITLE>본 사이트에 오신 것을 환영합니다..</TITLE>
@@ -23,7 +48,7 @@ td   { font-family: 돋움, Verdana; font-size: 9pt; text-decoration: none; colo
     <TABLE CELLPADDING=4 CELLSPACING=1 BORDER=0 WIDTH=330>
   	  <TR BGCOLOR="#FFFFFF">
         <TD ALIGN="center">
-          님 환영합니다.<br><br>
+        ${mvo.name }  님 환영합니다.<br><br>
         </TD>
       </TR>
     </TABLE>
@@ -42,9 +67,9 @@ td   { font-family: 돋움, Verdana; font-size: 9pt; text-decoration: none; colo
 <table cellpadding=0 cellspacing=0 border=0 width=330>
   <tr>
     <td align="center">
-      [자기정보수정]
-      [회원보기]
-
+      <a href = "userinfo_modify.jsp">[자기정보수정]</a>
+      <a href = "logout.jsp">[로그아웃]</a>
+	<a href = "userinfo_list.jsp">[리스트로 이동]</a>
 	</td>
   </tr>
 </table>
