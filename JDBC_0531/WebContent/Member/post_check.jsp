@@ -47,6 +47,7 @@ a    { font-family: 돋움, Verdana; color: #000000; text-decoration: none}
 		opener.insertFrm.zipcode.value = zipcode;
 		opener.insertFrm.addr1.value = addr1;
 		opener.insertFrm.addr2.value = "";
+		opener.insertFrm.addr2.readonly = true;
 		self.close();
 		
 	}

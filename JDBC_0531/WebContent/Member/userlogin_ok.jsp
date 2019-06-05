@@ -17,7 +17,7 @@
 		// 로그인 성공 
 		MemberVO mvo = manager.selectMemberById(inputId);
 		pageContext.setAttribute("mvo", mvo);
-		
+		manager.updateLastTime(""+mvo.getIdx());
 		
 		session.setAttribute("loginIdx", mvo.getIdx());
 		session.setAttribute("loginId", mvo.getUserid());
@@ -48,7 +48,7 @@ td   { font-family: 돋움, Verdana; font-size: 9pt; text-decoration: none; colo
     <TABLE CELLPADDING=4 CELLSPACING=1 BORDER=0 WIDTH=330>
   	  <TR BGCOLOR="#FFFFFF">
         <TD ALIGN="center">
-        ${mvo.name }  님 환영합니다.<br><br>
+        ${sessionScope.loginName }  님 환영합니다.<br><br>
         </TD>
       </TR>
     </TABLE>

@@ -3,6 +3,7 @@
 <%
 	String flag = request.getParameter("flag");
 	pageContext.setAttribute("flag", flag);
+	
 %>
 <HTML>
 <HEAD>

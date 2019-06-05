@@ -19,10 +19,19 @@ body { font-family: 돋움, Verdana; font-size: 9pt}
 td   { font-family: 돋움, Verdana; font-size: 9pt; text-decoration: none; color: #000000} 
 --->
 </STYLE>
+<script type="text/javascript">
+	function logout(){
+		var logoutConfirm = confirm("로그아웃 하시겠습니까");
+		if(logoutConfirm){
+			location.href = "logout.jsp";
+		}
+	}
+
+</script>
 </head>
 <body>
 <c:if test="${not empty sessionScope.loginName }">
-${sessionScope.loginName } 님 환영합니다 &nbsp;&nbsp; <A href = "logout.jsp">로그아웃</A><br>
+${sessionScope.loginName } 님 환영합니다 &nbsp;&nbsp; <a href = "userinfo_modify.jsp">회원정보 수정</a> &nbsp;&nbsp; <A href = "#" onclick = "javascript:logout()">로그아웃</A><br>
 </c:if>
 
 <c:if test="${empty sessionScope.loginName }">
@@ -42,10 +51,10 @@ ${sessionScope.loginName } 님 환영합니다 &nbsp;&nbsp; <A href = "logout.js
   
   <c:forEach var="mvo" items="${mList }">
    <tr>
-      <td align=center><a href = "userinfo_modify.jsp?idx=${mvo.idx }">${mvo.userid }</a></td>
+      <td align=center>${mvo.userid }</td>
       <td align=center>${mvo.name }</td>
-      <td width=300>${mvo.addr1 }&nbsp; ${mvo.addr2 }&nbsp;( ${mvo.zipcode } )</td>
-      <td align=center>921025</td>
+      <td width=300>${mvo.addr1 }&nbsp; ${mvo.addr2 }</td>
+      <td align=center>${mvo.zipcode }</td>
       <td align=center>${mvo.tel }</td>
       <td align=center>${mvo.job }</td>
       <td align=center>[삭제]</td>

@@ -35,6 +35,11 @@ td   { font-family: 돋움, Verdana; font-size: 9pt; text-decoration: none; colo
 			return false;
 		}
 		
+		if(idDupleFrm.userid.length < 3){
+			alert("아이디는 4자 이상 입력하세요");
+			return false;
+		}
+		
 		
 		idDupleFrm.submit();
 	}
@@ -90,7 +95,7 @@ td   { font-family: 돋움, Verdana; font-size: 9pt; text-decoration: none; colo
     	
     	<form method = "post" name = "idDupleFrm" action = "id_check.jsp">
            <INPUT NAME=userid type=text size=16 maxlength=16>
-      	   <a href = "#" onClick = "javascript:id_duple()"><input type=image src="./img/u_bt08.gif" border=0 vspace=0></a>
+      	   <a href = "#" onClick = "javascript:id_duple()"><img src="./img/u_bt08.gif" border=0 vspace=0></a>
 	</form>
         </TD>
       </TR>

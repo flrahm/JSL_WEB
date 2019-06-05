@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
 <title>회원등록</title>
@@ -12,12 +13,42 @@ td   { font-family: 돋움, Verdana; font-size: 9pt; text-decoration: none; colo
 } 
 --->
 </STYLE>
+<script type="text/javascript" src="userinfo_insert_exceptionHandling.js"></script>
 <script>
+	
 	function send(){
+		
+		
+	 if(!validity_name()){
+		 return false;
+	 }
+		 
+ 	 if(!validity_id()){
+		 return false;
+	 } 
+
+ 	 if(!validity_passwd()){
+		 return false;
+	 }
+	 
+ 	 if(!validity_repasswd()){
+		 return false;
+	 }  
+	 
+	 if(!validity_tel()){
+		 return false;
+	 }
+	 
+	 if(!validity_email()){
+		 return false;
+	 }
+	 
 		
 		insertFrm.submit();
 	}
 	
+ 
+ 
 	function id_check(){
 		window.open("id_check.jsp","id_check","width = 350 height = 250");
 	}
@@ -112,7 +143,7 @@ td   { font-family: 돋움, Verdana; font-size: 9pt; text-decoration: none; colo
 							<tr>
 								<TD BGCOLOR="#EFF4F8">&nbsp;나머지 주소<font color=red>&nbsp;</font></td>
 								<TD BGCOLOR=WHITE>
-									<input type=text name=addr2 size=50 maxlength=100 value="">
+									<input type=text name=addr2 size=50 maxlength=100 value=""  onclick="javascript:addr2check()" onchange="javascript:addr2check()" >
 								</td>
 							</tr>
 							<tr>
