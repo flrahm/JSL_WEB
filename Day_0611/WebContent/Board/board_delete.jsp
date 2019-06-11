@@ -26,6 +26,7 @@
 <c:if test="${flag == 1 }">
 <script>
 	alert("삭제되었습니다");
+	opener.location.href="/Day_0611/board_list.do";
 	self.close();
 </script>
 </c:if>
