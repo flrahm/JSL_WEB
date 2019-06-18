@@ -1,11 +1,18 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head><title>자료 삭제</title>
 <link rel="stylesheet" type="text/css" href="/stylesheet.css">
 </head>
 <body>
+	<form method = "post" name = "deleteFrm" action = "delete">
   <table border="0" cellpadding="0" cellspacing="0" width="300" align="center">
+  <c:if test="${requestScope.flag == false }">
+    <tr>
+    <td height="50">
+    <img src="./img/bullet-05.gif"> <b><font size="3" color="red">비밀번호가 일치하지 않습니다</font></b></td></tr>
+  <tr>
+  </c:if>
   <tr>
     <td height="50">
     <img src="./img/bullet-05.gif"> <b><font size="3" color="red">잠깐 !!</font></b></td></tr>
@@ -16,8 +23,10 @@
   <tr>
     <td valign="middle" height="40">
     <font size="2" face="돋움">비밀번호 <input type="password" name="pass" size="8"></font>
+    <input type = "hidden" name = "num" value = "${requestScope.num }">
     <input type="submit" value="삭제">
-    <input type="button" value="닫기"> </td></tr>
+    <a href = "#" onclick = "javascript:self.close()"><input type="button" value="닫기"></a> </td></tr>
   </table>
+  </form>
 </body>
 </html>

@@ -44,15 +44,16 @@ request.setCharacterEncoding("utf-8");
 			${pvo.name }/ ${pvo.indate } / ${pvo.readcnt }번 읽음
     <p>${pvo.contents } <Br><p>
     
-    <img src ="/Day_0614/Pds/img/disk.gif" align="middle" width="22" height="20" border="0">&nbsp;${pvo.filename }
+    <img src ="/Day_0614/Pds/img/disk.gif" align="middle" width="22" height="20" border="0">&nbsp;
+    <a href = "/Day_0614/filedown2?filename=${pvo.filename }">${pvo.filename }</a>
 	
 	</font></td></tr>
   </table>
   <p align="center">
   <font size="2">
-  <img src="/Day_0614/Pds/img/edit-1.gif" border="0">&nbsp;&nbsp;&nbsp;&nbsp;
-  <img src="/Day_0614/Pds/img/del.gif" border="0">&nbsp;&nbsp;&nbsp;&nbsp;
-  <img src="/Day_0614/Pds/img/list-2.gif" border="0"></font></td></tr>  
+  <a href = "modify?num=${pvo.num }" ><img src="/Day_0614/Pds/img/edit-1.gif" border="0"></a>&nbsp;&nbsp;&nbsp;&nbsp;
+  <a href = "#" onClick = "javascript:window.open('/Day_0614/delete?num=${pvo.num }','delete','width = 300, height = 200')"><img src="/Day_0614/Pds/img/del.gif" border="0"></a>&nbsp;&nbsp;&nbsp;&nbsp;
+ <A href = "list"> <img src="/Day_0614/Pds/img/list-2.gif" border="0"></A></font></td></tr>  
   
 </table>  
 

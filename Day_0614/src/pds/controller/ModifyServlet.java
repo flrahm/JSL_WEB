@@ -1,9 +1,10 @@
 package pds.controller;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,54 +13,53 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
-import com.sun.xml.internal.bind.v2.runtime.Location;
 
 import pds.dao.PdsDAO;
 import pds.vo.PdsVO;
 
 /**
- * Servlet implementation class WriteServlet
+ * Servlet implementation class ModifyServlet
  */
-@WebServlet("/write")
-public class WriteServlet extends HttpServlet {
+@WebServlet("/modify")
+public class ModifyServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public ModifyServlet() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
 
 	/**
-	 * @see HttpServlet#HttpServlet()
-	 *
-	 *      public WriteServlet() { super(); // TODO Auto-generated constructor stub
-	 *      }
-	 * 
-	 *      /**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		RequestDispatcher rd = request.getRequestDispatcher("/Pds/pds_write.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/Pds/pds_modify.jsp");
+		PdsDAO pdao = PdsDAO.getInstance();
+		String num = request.getParameter("num");
+		PdsVO pvo = pdao.selectByNum(num);
+		request.setAttribute("pvo", pvo);
 		rd.forward(request, response);
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset = UTF-8");
-
-		
 		int uploadFileMaxSize = 10 * 1024 * 1024;
 		String encType = "UTF-8";
-		
-		
-		//String savePath = "/Day_0614/Pds/upload";
-		//ServletContext context = getServletContext();
-		//String uploadFilePath = context.getRealPath(savePath);
 		String uploadFilePath = "E:\\라이브러리\\문서\\WebExam\\Day_0614\\WebContent\\Pds\\upload";
+		PdsDAO pdao = PdsDAO.getInstance();
+		
+
+		
+		
 		try {
 			MultipartRequest multi = new MultipartRequest(
 					request,
@@ -74,24 +74,36 @@ public class WriteServlet extends HttpServlet {
 			String subject = multi.getParameter("subject");
 			String contents = multi.getParameter("contents");
 			String pass = multi.getParameter("pass");
-			
+			int num = Integer.parseInt(multi.getParameter("num"));
 			PdsVO pvo = new PdsVO();
 			pvo.setContents(contents);
 			pvo.setFilename(filename);
 			pvo.setSubject(subject);
 			pvo.setPass(pass);
 			pvo.setName(name);
-			
+			pvo.setNum(num);
 			/*
 			 * System.out.println(filename); System.out.println(name);
 			 * System.out.println(subject); System.out.println(contents);
 			 * System.out.println(pass);
 			 */
-			PdsDAO pdao = PdsDAO.getInstance();
 			
 			
-			int insertOK = pdao.insertPds(pvo);
-			System.out.println(insertOK);
+			//파일 삭제
+			String deletefilename = pdao.getFilename(""+num);
+			String deletefilepath = "E:/라이브러리/문서/WebExam/Day_0614/WebContent/Pds/upload/";
+			
+			try {
+				File file = new File(deletefilepath + deletefilename);
+				file.delete();
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+			
+			
+			// 수정
+			int updateOK = pdao.updatePds(pvo);
+			System.out.println(updateOK);
 			
 			/*
 			 * request.setAttribute("fileName", fileName); request.setAttribute("name",
@@ -101,8 +113,7 @@ public class WriteServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		response.sendRedirect("./list");
-		
+		response.sendRedirect("list");
 	}
 
 }
