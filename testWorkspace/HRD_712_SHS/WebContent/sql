@@ -1,0 +1,30 @@
+
+
+
+create table personnel(
+
+id char(4) primary key,
+name varchar2(30) not null,
+dept varchar2(20) not null,
+position char(1),
+duty varchar2(20),
+phone varchar2(14) not null
+);
+
+select * from personnel order by id;
+
+insert into personnel values ('0001','김자바','인사부','1','상무','010-1111-2222');
+insert into personnel values ('0002','박씨샵','인사부','2','과장','010-1111-3333');
+insert into personnel values ('0003','윤펄','기획부','1','상무','010-1111-4444');
+insert into personnel values ('0004','홍길동','기획부','2','과장','010-1111-5555');
+insert into personnel values ('0005','김선혁','홍보부','3','대리','010-1111-6666');
+insert into personnel values ('0011','박영성','영업부','1','상무','010-1111-7777');
+insert into personnel values ('0023','홍홍보','홍보부','3','대리','010-2222-6666');
+insert into personnel values ('0025','조홍보','홍보부','1','상무','010-2332-6236');
+insert into personnel values ('0007','박병호','영업부','2','과장','010-2442-6236');
+
+insert into personnel values ('0035','AAA','경리부','2','과장','010-2442-1111');
+insert into personnel values ('0040','BBB','경리부','2','과장','010-2442-1111');
+insert into personnel values ('0039','CCC','경리부','2','과장','010-2442-1111');
+insert into personnel values ('0033','DDD','경리부','2','과장','010-2442-1111');
+insert into personnel values ('0034','EEE','경리부','2','과장','010-2442-1111');
