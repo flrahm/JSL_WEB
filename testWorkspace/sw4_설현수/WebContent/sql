@@ -1,0 +1,47 @@
+create table product(
+
+code char(3) primary key,
+pname varchar2(20) not null,
+cost number, 	     /*제품 원가*/
+pnum number,		/*목표 수량 */
+jnum number,		/*재고 수량 */
+sale number,		/*출고가 */
+gcode char(3) not null, 
+constraint product_gcode_fk foreign key (gcode) references groupcode(gcode)
+
+);
+
+create table groupcode(
+
+gcode char(3) primary key,
+gname varchar2(20) not null
+);
+
+
+select pname,(pnum+(jnum*(-1))) as p from product where (jnum/pnum)*100 <= 20 ;
+select pname,(jnum*sale) as profit from product order by profit desc;
+select gcode,sum(jnum) from PRODUCT group by gcode;
+
+
+
+insert into groupcode values('A','컴퓨터');
+insert into groupcode values('B','냉장고');
+insert into groupcode values('C','냉장소모품');
+
+insert into product values ('A01','컴퓨터DVD',1500,300,50,2000,'A');
+insert into product values ('A02','컴퓨터CDROM',1200,500,100,1500,'A');
+insert into product values ('A03','컴퓨터모니터',50000,400,50,55000,'A');
+insert into product values ('A04','컴퓨터프린터',20000,400,100,23000,'A');
+insert into product values ('B01','모바일케이스',1000,500,1200,900,'B');
+insert into product values ('B02','모바일케이스',500,100,2000,400,'B');
+insert into product values ('C01','냉장고손잡이',300,1000,300,1500,'C');
+insert into product values ('C02','냉장고도어',40000,300,50,47000,'C');
+insert into product values ('C03','냉장고냉장박스',3000,200,20,3500,'C');
+insert into product values ('C04','냉장고냉동박스',3500,300,80,4000,'C');
+
+
+
+
+
+
+
